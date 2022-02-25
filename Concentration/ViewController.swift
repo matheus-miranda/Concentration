@@ -29,6 +29,11 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func newGame(_ sender: UIButton) {
+        game.startNewGame()
+        updateViewFromModel()
+    }
+    
     func updateViewFromModel() {
         for index in cardButtons.indices {
             let button = cardButtons[index]

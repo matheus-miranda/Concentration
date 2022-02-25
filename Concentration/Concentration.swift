@@ -38,6 +38,14 @@ class Concentration {
         }
     }
     
+    func startNewGame() {
+        for cardIndex in cards.indices {
+            cards[cardIndex].isMatched = false
+            cards[cardIndex].isFaceUp = false
+        }
+        cards.shuffle()
+    }
+    
     init(numberOfPairsOfCards: Int) {
         for _ in 0 ..< numberOfPairsOfCards {
             let card = Card()
