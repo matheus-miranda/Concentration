@@ -9,23 +9,23 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
+    private lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     
     var numberOfPairsOfCards: Int {
         return (cardButtons.count + 1) / 2
     }
     
-    var flipCount = 0 {
+    private(set) var flipCount = 0 {
         didSet {
             flipCountLabel.text = "Flips: \(flipCount)"
         }
     }
     
-    @IBOutlet weak var flipCountLabel: UILabel!
+    @IBOutlet private weak var flipCountLabel: UILabel!
     
-    @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet private var cardButtons: [UIButton]!
     
-    @IBAction func touchCard(_ sender: UIButton) {
+    @IBAction private func touchCard(_ sender: UIButton) {
         flipCount += 1
         if let cardNumber = cardButtons.firstIndex(of: sender) {
             game.chooseCard(at: cardNumber)
@@ -33,13 +33,13 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func newGame(_ sender: UIButton) {
+    @IBAction private func newGame(_ sender: UIButton) {
         game.startNewGame()
         updateViewFromModel()
         flipCount = 0
     }
     
-    func updateViewFromModel() {
+    private func updateViewFromModel() {
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]
@@ -53,11 +53,11 @@ class ViewController: UIViewController {
         }
     }
     
-    var objectChoices = ["car", "bike", "house", "broom", "shovel", "tent"]
+    private var objectChoices = ["car", "bike", "house", "broom", "shovel", "tent"]
     
-    var cardTitle = Dictionary<Int, String>() // [Int:String]()
+    private var cardTitle = Dictionary<Int, String>() // [Int:String]()
     
-    func title(for card: Card) -> String {
+    private func title(for card: Card) -> String {
         if cardTitle[card.identifier] == nil, objectChoices.count > 0 {
             let randomIndex = Int(arc4random_uniform(UInt32(objectChoices.count)))
             cardTitle[card.identifier] = objectChoices.remove(at: randomIndex)
