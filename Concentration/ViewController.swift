@@ -9,14 +9,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count + 1) / 2)
+    lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
+    
+    var numberOfPairsOfCards: Int {
+        return (cardButtons.count + 1) / 2
+    }
     
     var flipCount = 0 {
         didSet {
             flipCountLabel.text = "Flips: \(flipCount)"
         }
     }
-
+    
     @IBOutlet weak var flipCountLabel: UILabel!
     
     @IBOutlet var cardButtons: [UIButton]!
@@ -55,7 +59,7 @@ class ViewController: UIViewController {
     
     func title(for card: Card) -> String {
         if cardTitle[card.identifier] == nil, objectChoices.count > 0 {
-                let randomIndex = Int(arc4random_uniform(UInt32(objectChoices.count)))
+            let randomIndex = Int(arc4random_uniform(UInt32(objectChoices.count)))
             cardTitle[card.identifier] = objectChoices.remove(at: randomIndex)
         }
         
