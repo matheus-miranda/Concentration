@@ -32,6 +32,7 @@ class ViewController: UIViewController {
     @IBAction func newGame(_ sender: UIButton) {
         game.startNewGame()
         updateViewFromModel()
+        flipCount = 0
     }
     
     func updateViewFromModel() {
