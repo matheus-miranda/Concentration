@@ -55,14 +55,25 @@ class ViewController: UIViewController {
     
     private var objectChoices = ["car", "bike", "house", "broom", "shovel", "tent"]
     
-    private var cardTitle = Dictionary<Int, String>() // [Int:String]()
+    private var cardTitle = Dictionary<Card, String>() // [Int:String]()
     
     private func title(for card: Card) -> String {
-        if cardTitle[card.identifier] == nil, objectChoices.count > 0 {
-            let randomIndex = Int(arc4random_uniform(UInt32(objectChoices.count)))
-            cardTitle[card.identifier] = objectChoices.remove(at: randomIndex)
+        if cardTitle[card] == nil, objectChoices.count > 0 {
+            cardTitle[card] = objectChoices.remove(at: objectChoices.count.arc4random)
         }
         
-        return cardTitle[card.identifier] ?? "?"
+        return cardTitle[card] ?? "?"
+    }
+}
+
+extension Int {
+    var arc4random: Int {
+        if self > 0 {
+            return Int(arc4random_uniform(UInt32(self)))
+        } else if self < 0 {
+            return -Int(arc4random_uniform(UInt32(abs(self))))
+        } else {
+            return 0
+        }
     }
 }
